@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefWidth="600" prefHeight="400"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.quantum.solutions.quantumsolutions.MainController">
+
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu text="_Archivo">
+                    <MenuItem text="Cargar CSV…" onAction="#onLoadCsv"/>
+                    <MenuItem text="Guardar CSV…" onAction="#onSaveCsv"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Salir" onAction="#onExit"/>
+                </Menu>
+                <Menu text="_Empleado">
+                    <MenuItem text="Agregar…" onAction="#onAdd"/>
+                    <MenuItem text="Actualizar…" onAction="#onUpdate"/>
+                    <MenuItem text="Eliminar…" onAction="#onDelete"/>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <center>
+        <TableView fx:id="table" editable="false">
+            <columns>
+                <TableColumn fx:id="dpiCol" text="DPI" prefWidth="150"/>
+                <TableColumn fx:id="nameCol" text="Nombre completo" prefWidth="300"/>
+                <TableColumn fx:id="typeCol" text="Tipo de soporte" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
