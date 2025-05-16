@@ -1,0 +1,95 @@
+/* =========================================================
+   PALETA – SIN VARIABLES, SOLO HEXÁDECIMALES
+   ========================================================= */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #F5F6FA;           /* fondo ventana */
+}
+
+/* =========================================================
+   MENÚ SUPERIOR
+   ========================================================= */
+.menu-bar {                                  /* barra completa */
+    -fx-background-color: linear-gradient(#34495E 0%, #2C3E50 100%);
+    -fx-padding: 0 5 0 5;
+}
+
+/* texto de cada menú (“Archivo”, “Empleado”, …) */
+.menu-bar > .container > .menu > .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* items desplegados */
+.context-menu, .menu-item {
+    -fx-font-size: 13px;
+}
+
+/* resalte al pasar el ratón o recibir foco */
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: #3498DB;
+}
+.menu-item:hover .label,
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+/* =========================================================
+   TABLA – MARCO Y FILAS
+   ========================================================= */
+.table-view {
+    /* contorno y esquinas */
+    -fx-border-color: #BDC3C7;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+
+    /* zebra sin pseudo-clases */
+    -fx-control-inner-background: white;     /* filas pares    */
+    -fx-control-inner-background-alt: #ECF0F1;/* filas impares */
+    /* selección */
+    -fx-selection-bar: #3498DB;
+    -fx-selection-bar-text: white;
+}
+
+/* hover de la fila (sin interferir con selección) */
+.table-row-cell:hover {
+    -fx-background-color: #D0E4F7;
+}
+
+/* =========================================================
+   CABECERA DE LA TABLA
+   ========================================================= */
+/* tira completa detrás de los títulos */
+.table-view .column-header-background {
+    -fx-background-color: #2C3E50;
+    -fx-border-color: #34495E;
+    -fx-border-width: 0 0 1 0;               /* línea divisoria */
+}
+
+/* cada celda de cabecera (por columna) */
+.table-view .column-header {
+    -fx-background-color: #2C3E50;           /* refuerzo */
+}
+
+/* texto de la cabecera */
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 6;                    /* aire a la izq. */
+}
+
+/* relleno a la derecha cuando faltan columnas */
+.table-view .filler {
+    -fx-background-color: #2C3E50;
+}
+
+/* =========================================================
+   CELDAS – ESPACIADO
+   ========================================================= */
+.table-cell {
+    -fx-padding: 4 6 4 6;
+}

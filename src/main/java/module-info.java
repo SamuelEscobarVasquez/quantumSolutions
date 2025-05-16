@@ -10,4 +10,10 @@ module org.quantum.solutions.quantumsolutions {
 
     opens org.quantum.solutions.quantumsolutions to javafx.fxml;
     exports org.quantum.solutions.quantumsolutions;
+    exports org.quantum.solutions.quantumsolutions.controller;
+    opens org.quantum.solutions.quantumsolutions.controller to javafx.fxml;
+    exports org.quantum.solutions.quantumsolutions.model;
+    opens org.quantum.solutions.quantumsolutions.model to javafx.fxml;
+    exports org.quantum.solutions.quantumsolutions.service;
+    opens org.quantum.solutions.quantumsolutions.service to javafx.fxml;
 }
