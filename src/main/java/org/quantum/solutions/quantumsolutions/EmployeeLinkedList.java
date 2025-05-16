@@ -44,6 +44,7 @@ public class EmployeeLinkedList {
         remove(updated.getDpi());     // quita el viejo
         add(updated);                 // re-inserta respetando orden
         return true;
+
     }
 
     /* ---------- utilidades CSV ---------- */
