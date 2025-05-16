@@ -14,31 +14,31 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class MainController {
-git
-    @FXML private TableView<Employee> table;
-    @FXML private TableColumn<Employee,String> dpiCol;
-    @FXML private TableColumn<Employee,String> nameCol;
-    @FXML private TableColumn<Employee,SupportType> typeCol;
+ 
+    @FXML private TableView<empleado> tabla;
+    @FXML private TableColumn<empleado,String> DpiColumn;
+    @FXML private TableColumn<empleado,String> NombreColumn;
+    @FXML private TableColumn<empleado,SupportType> TipoColumn;
 
-    private final EmployeeLinkedList employees = new EmployeeLinkedList();
-    private Path currentCsv = Path.of("employees.csv");   // fichero por defecto
+    private final EmployeeLinkedList empleados = new EmployeeLinkedList();
+    private Path CSVactual = Path.of("empleados.csv");   // fichero por defecto
 
     /* ---------- inicialización ---------- */
     @FXML private void initialize() {
-        dpiCol.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDpi()));
-        nameCol.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getFullName()));
-        typeCol.setCellValueFactory(d -> new ReadOnlyObjectWrapper<>(d.getValue().getSupportType()));
+        DpiColumn.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDpi()));
+        NombreColumn.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getNombre()));
+        TipoColumn.setCellValueFactory(d -> new ReadOnlyObjectWrapper<>(d.getValue().getPsoporte()));
         refreshTable();
 
         // intenta precargar
-        try { employees.load(currentCsv); refreshTable(); }
+        try { empleados.cargar(CSVactual); refreshTable(); }
         catch (IOException ignored) { /* primera ejecución → archivo inexistente */ }
     }
 
     /* ---------- acciones de menú ---------- */
 
     @FXML
-    private void onLoadCsv() {
+    private void cargarCSV() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Seleccionar CSV");
         fc.getExtensionFilters().add(
@@ -50,8 +50,8 @@ git
 
         Path p = file.toPath();
         try {
-            employees.load(p);
-            currentCsv = p;
+            empleados.cargar(p);
+            CSVactual = p;
             refreshTable();
         } catch (IOException e) {
             showError("No se pudo cargar el archivo.");
@@ -59,18 +59,18 @@ git
     }
 
     @FXML
-    private void onSaveCsv() {
+    private void GuardarCSV() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Guardar CSV como…");
         fc.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("CSV", "*.csv"));
 
         // Sugiere la ruta actual (si existe) y un nombre por defecto
-        if (currentCsv != null) {
-            fc.setInitialDirectory(currentCsv.toFile().getParentFile());
-            fc.setInitialFileName(currentCsv.getFileName().toString());
+        if (CSVactual != null) {
+            fc.setInitialDirectory(CSVactual.toFile().getParentFile());
+            fc.setInitialFileName(CSVactual.getFileName().toString());
         } else {
-            fc.setInitialFileName("employees.csv");
+            fc.setInitialFileName("Empleados.csv");
         }
 
         File file = fc.showSaveDialog(getStage());
@@ -78,54 +78,54 @@ git
 
         Path p = file.toPath();
         try {
-            employees.save(p);             // escribe la lista en disco
-            currentCsv = p;                // recordamos la nueva ruta
+            empleados.guardar(p);             // escribe la lista en disco
+            CSVactual = p;                // recordamos la nueva ruta
             showInfo("Archivo guardado en:\n" + p);
         } catch (IOException e) {
             showError("No se pudo guardar el archivo.");
         }
     }
 
-    @FXML private void onAdd() {
-        Employee e = showEmployeeDialog(null);
-        if (e != null) { employees.add(e); refreshTable(); }
+    @FXML private void AgregarE() {
+        empleado e = showEmployeeDialog(null);
+        if (e != null) { empleados.agregar(e); refreshTable(); }
     }
 
-    @FXML private void onUpdate() {
-        Employee sel = table.getSelectionModel().getSelectedItem();
+    @FXML private void ActualizarE() {
+        empleado sel = tabla.getSelectionModel().getSelectedItem();
         if (sel == null) { showInfo("Selecciona un empleado primero."); return; }
-        Employee updated = showEmployeeDialog(sel);
-        if (updated != null) { employees.update(updated); refreshTable(); }
+        empleado updated = showEmployeeDialog(sel);
+        if (updated != null) { empleados.actualizar(updated); refreshTable(); }
     }
 
-    @FXML private void onDelete() {
-        Employee sel = table.getSelectionModel().getSelectedItem();
+    @FXML private void BorrarE() {
+        empleado sel = tabla.getSelectionModel().getSelectedItem();
         if (sel == null) { showInfo("Selecciona un empleado primero."); return; }
-        employees.remove(sel.getDpi());
+        empleados.eliminar(sel.getDpi());
         refreshTable();
     }
 
-    @FXML private void onExit() { getStage().close(); }
+    @FXML private void Salir() { getStage().close(); }
 
     /* ---------- utilidades ---------- */
 
-    private void refreshTable() { table.setItems(employees.asObservableList()); }
+    private void refreshTable() { tabla.setItems(empleados.ListaV()); }
 
-    private Stage getStage() { return (Stage) table.getScene().getWindow(); }
+    private Stage getStage() { return (Stage) tabla.getScene().getWindow(); }
 
     private void showError(String msg) { new Alert(Alert.AlertType.ERROR, msg).showAndWait(); }
     private void showInfo(String msg) { new Alert(Alert.AlertType.INFORMATION, msg).showAndWait(); }
 
-    private Employee showEmployeeDialog(Employee original) {
-        Dialog<Employee> dialog = new Dialog<>();
+    private empleado showEmployeeDialog(empleado original) {
+        Dialog<empleado> dialog = new Dialog<>();
         dialog.setTitle(original == null ? "Nuevo empleado" : "Actualizar empleado");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         TextField dpiField   = new TextField(original == null ? "" : original.getDpi());
-        TextField nameField  = new TextField(original == null ? "" : original.getFullName());
+        TextField nameField  = new TextField(original == null ? "" : original.getNombre());
         ComboBox<SupportType> typeBox = new ComboBox<>();
         typeBox.getItems().addAll(SupportType.values());
-        typeBox.setValue(original == null ? SupportType.PC_REPAIR : original.getSupportType());
+        typeBox.setValue(original == null ? SupportType.PC_REPAIR : original.getPsoporte());
 
         GridPane grid = new GridPane();
         grid.setHgap(10); grid.setVgap(10);
@@ -136,7 +136,7 @@ git
 
         dialog.setResultConverter(btn -> {
             if (btn == ButtonType.OK) {
-                return new Employee(dpiField.getText().trim(),
+                return new empleado(dpiField.getText().trim(),
                         nameField.getText().trim(),
                         typeBox.getValue());
             }

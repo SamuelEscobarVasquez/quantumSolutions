@@ -10,54 +10,55 @@ import java.util.StringTokenizer;
 
 public class EmployeeLinkedList {
 
-    private EmployeeNode head;
+    private Nodoempleado Encabezado;
 
     /* ---------- operaciones CRUD ordenadas por nombre ---------- */
 
-    public void add(Employee e) {
-        if (head == null || e.getFullName().compareToIgnoreCase(head.data.getFullName()) < 0) {
-            EmployeeNode n = new EmployeeNode(e); n.next = head; head = n; return;
+    public void agregar(empleado e) {
+        if (Encabezado == null || e.getNombre().compareToIgnoreCase(Encabezado.data.getNombre()) < 0) {
+            Nodoempleado n = new Nodoempleado(e); n.siguiente = Encabezado; Encabezado = n; return;
         }
-        EmployeeNode curr = head;
-        while (curr.next != null &&
-                curr.next.data.getFullName().compareToIgnoreCase(e.getFullName()) < 0) {
-            curr = curr.next;
+        Nodoempleado curr = Encabezado;
+        while (curr.siguiente != null &&
+                curr.siguiente.data.getNombre().compareToIgnoreCase(e.getNombre()) < 0) {
+            curr = curr.siguiente;
         }
-        EmployeeNode n = new EmployeeNode(e);
-        n.next = curr.next;
-        curr.next = n;
+        Nodoempleado n = new Nodoempleado(e);
+        n.siguiente = curr.siguiente;
+        curr.siguiente = n;
     }
 
-    public boolean remove(String dpi) {
-        if (head == null) return false;
-        if (head.data.getDpi().equals(dpi)) { head = head.next; return true; }
-        EmployeeNode curr = head;
-        while (curr.next != null && !curr.next.data.getDpi().equals(dpi))
-            curr = curr.next;
-        if (curr.next == null) return false;
-        curr.next = curr.next.next;
+    public boolean eliminar(String dpi) {
+        if (Encabezado == null) return false;
+        if (Encabezado.data.getDpi().equals(dpi)) { Encabezado = Encabezado.siguiente; return true; }
+        Nodoempleado curr = Encabezado;
+        while (curr.siguiente != null && !curr.siguiente.data.getDpi().equals(dpi))
+            curr = curr.siguiente;
+        if (curr.siguiente == null) return false;
+        curr.siguiente = curr.siguiente.siguiente;
         return true;
     }
 
-    public boolean update(Employee updated) {
-        EmployeeNode n = head;
-        remove(updated.getDpi());     // quita el viejo
-        add(updated);                 // re-inserta respetando orden
+    public boolean actualizar(empleado actualizado) {
+        Nodoempleado n = Encabezado;
+        eliminar(actualizado.getDpi());     // quita el viejo
+        agregar(actualizado);                 // re-inserta respetando orden
         return true;
+
     }
 
     /* ---------- utilidades CSV ---------- */
 
-    private static final String CSV_SEPARATOR = ",";
+    private static final String SeparadorCSV = ",";
 
-    public void load(Path file) throws IOException {
+    public void cargar(Path file) throws IOException {
         if (!Files.exists(file)) return;
         try (BufferedReader br = Files.newBufferedReader(file)) {
             String line;
             while ((line = br.readLine()) != null) {
-                StringTokenizer t = new StringTokenizer(line, CSV_SEPARATOR);
+                StringTokenizer t = new StringTokenizer(line, SeparadorCSV);
                 if (t.countTokens() != 3) continue;
-                add(new Employee(
+                agregar(new empleado(
                         t.nextToken(),
                         t.nextToken(),
                         SupportType.valueOf(t.nextToken())
@@ -66,25 +67,25 @@ public class EmployeeLinkedList {
         }
     }
 
-    public void save(Path file) throws IOException {
+    public void guardar(Path file) throws IOException {
         try (BufferedWriter bw = Files.newBufferedWriter(file)) {
-            EmployeeNode curr = head;
+            Nodoempleado curr = Encabezado;
             while (curr != null) {
-                Employee e = curr.data;
-                bw.write(String.join(CSV_SEPARATOR,
+                empleado e = curr.data;
+                bw.write(String.join(SeparadorCSV,
                         e.getDpi(),
-                        e.getFullName(),
-                        e.getSupportType().name()));
+                        e.getNombre(),
+                        e.getPsoporte().name()));
                 bw.newLine();
-                curr = curr.next;
+                curr = curr.siguiente;
             }
         }
     }
 
-    public ObservableList<Employee> asObservableList() {
-        ObservableList<Employee> list = FXCollections.observableArrayList();
-        EmployeeNode curr = head;
-        while (curr != null) { list.add(curr.data); curr = curr.next; }
+    public ObservableList<empleado> ListaV() {
+        ObservableList<empleado> list = FXCollections.observableArrayList();
+        Nodoempleado curr = Encabezado;
+        while (curr != null) { list.add(curr.data); curr = curr.siguiente; }
         return list;
     }
 }
