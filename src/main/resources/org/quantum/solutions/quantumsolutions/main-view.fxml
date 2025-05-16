@@ -10,26 +10,26 @@
         <MenuBar>
             <menus>
                 <Menu text="_Archivo">
-                    <MenuItem text="Cargar CSV…" onAction="#onLoadCsv"/>
-                    <MenuItem text="Guardar CSV…" onAction="#onSaveCsv"/>
+                    <MenuItem text="Cargar CSV…" onAction="#cargarCSV"/>
+                    <MenuItem text="Guardar CSV…" onAction="#GuardarCSV"/>
                     <SeparatorMenuItem/>
-                    <MenuItem text="Salir" onAction="#onExit"/>
+                    <MenuItem text="Salir" onAction="#Salir"/>
                 </Menu>
                 <Menu text="_Empleado">
-                    <MenuItem text="Agregar…" onAction="#onAdd"/>
-                    <MenuItem text="Actualizar…" onAction="#onUpdate"/>
-                    <MenuItem text="Eliminar…" onAction="#onDelete"/>
+                    <MenuItem text="Agregar…" onAction="#AgregarE"/>
+                    <MenuItem text="Actualizar…" onAction="#ActualizarE"/>
+                    <MenuItem text="Eliminar…" onAction="#BorrarE"/>
                 </Menu>
             </menus>
         </MenuBar>
     </top>
 
     <center>
-        <TableView fx:id="table" editable="false">
+        <TableView fx:id="tabla" editable="false">
             <columns>
-                <TableColumn fx:id="dpiCol" text="DPI" prefWidth="150"/>
-                <TableColumn fx:id="nameCol" text="Nombre completo" prefWidth="300"/>
-                <TableColumn fx:id="typeCol" text="Tipo de soporte" prefWidth="150"/>
+                <TableColumn fx:id="DpiColumn" text="DPI" prefWidth="150"/>
+                <TableColumn fx:id="NombreColumn" text="Nombre completo" prefWidth="300"/>
+                <TableColumn fx:id="TipoColumn" text="Tipo de soporte" prefWidth="150"/>
             </columns>
         </TableView>
     </center>
