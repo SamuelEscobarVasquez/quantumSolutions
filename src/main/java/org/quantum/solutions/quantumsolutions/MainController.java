@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class MainController {
-
+ 
     @FXML private TableView<empleado> tabla;
     @FXML private TableColumn<empleado,String> DpiColumn;
     @FXML private TableColumn<empleado,String> NombreColumn;
