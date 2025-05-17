@@ -16,7 +16,6 @@ public enum TipoSoporte {
     }
 
     public static boolean isValid(String tipoSoporte) {
-        System.out.println(tipoSoporte);
         return ofNullable(tipoSoporte) != null;
     }
 
@@ -24,9 +23,6 @@ public enum TipoSoporte {
         if (nombre == null) return null;
         return Arrays.stream(values())
                 .filter(t -> {
-                    System.out.println(t.label);
-                    System.out.println(nombre.trim());
-                    System.out.println(t.label.equalsIgnoreCase(nombre.trim()));
                     return t.label.equalsIgnoreCase(nombre.trim());
                 })
                 .findFirst()

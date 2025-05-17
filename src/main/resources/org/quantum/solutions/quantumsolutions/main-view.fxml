@@ -8,7 +8,7 @@
             prefWidth="800" prefHeight="500"
             stylesheets="@empleado.css">
 
-    <!-- ─────────────  MENÚ SUPERIOR  ───────────── -->
+
     <top>
         <MenuBar>
             <menus>
@@ -28,7 +28,7 @@
         </MenuBar>
     </top>
 
-    <!-- ─────────────  TABLA CENTRAL  ───────────── -->
+
     <center>
         <TableView fx:id="tabla" editable="false">
             <columns>
@@ -36,7 +36,7 @@
                 <TableColumn fx:id="NombreColumn" text="Nombre completo"    prefWidth="360"/>
                 <TableColumn fx:id="TipoColumn"   text="Tipo de soporte"    prefWidth="200"/>
             </columns>
-            <!-- Ajuste automático de columnas -->
+
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>

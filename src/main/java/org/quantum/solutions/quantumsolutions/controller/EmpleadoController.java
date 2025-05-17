@@ -1,4 +1,3 @@
-// MainController.java
 package org.quantum.solutions.quantumsolutions.controller;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -33,7 +32,7 @@ public class EmpleadoController {
         TipoColumn.setCellValueFactory(d -> new ReadOnlyObjectWrapper<>(d.getValue().getTipoSoporte()));
         refreshTable();
 
-        // intenta precargar
+
         try { empleados.cargar(CSVactual); refreshTable(); }
         catch (IOException ignored) {
             System.out.println("Archivo no encontrado para precargar data...");
@@ -49,9 +48,9 @@ public class EmpleadoController {
         fc.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("CSV", "*.csv"));
 
-        // devuelto por el diálogo:
+
         File file = fc.showOpenDialog(getStage());
-        if (file == null) return;               // usuario canceló
+        if (file == null) return;
 
         Path p = file.toPath();
         try {
@@ -79,12 +78,12 @@ public class EmpleadoController {
         }
 
         File file = fc.showSaveDialog(getStage());
-        if (file == null) return;          // usuario canceló
+        if (file == null) return;
 
         Path p = file.toPath();
         try {
-            empleados.exportar(p);             // escribe la lista en disco
-            CSVactual = p;                // recordamos la nueva ruta
+            empleados.exportar(p);
+            CSVactual = p;
             showInfo("Archivo guardado en:\n" + p);
         } catch (IOException e) {
             showError("No se pudo guardar el archivo.");

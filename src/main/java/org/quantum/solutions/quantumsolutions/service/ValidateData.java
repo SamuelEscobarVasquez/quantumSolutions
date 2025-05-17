@@ -44,9 +44,6 @@ public class ValidateData {
             calculado = 0;
         }
 
-        // Extrae el dígito verificador (décimo carácter, índice 8)
-        System.out.println(pDPI);
-        System.out.println(pDPI.charAt(8));
         int dvReal = Character.getNumericValue(pDPI.charAt(8));
 
         if (calculado != dvReal) {
