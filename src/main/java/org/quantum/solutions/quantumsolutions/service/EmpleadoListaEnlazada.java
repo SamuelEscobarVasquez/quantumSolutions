@@ -24,7 +24,7 @@ public class EmpleadoListaEnlazada {
             String nombreValido = validateInfo.normalizeAndValidateName(emp.getNombre());
             emp.setNombre(nombreValido);
         } catch (IllegalArgumentException e) {
-            validateInfo.showError("Nombre inválido: " + e.getMessage());
+                validateInfo.showError("Nombre inválido: " + e.getMessage());
             return;
         }
 
@@ -40,7 +40,7 @@ public class EmpleadoListaEnlazada {
             TipoSoporte tipoSoporteValido = validateInfo.validarTipoSoporte(emp.getTipoSoporte().toString());
             emp.setTipoSoporte(tipoSoporteValido);
         } catch (IllegalArgumentException e) {
-            validateInfo.showError("DPI inválido: " + e.getMessage());
+            validateInfo.showError("Tipo soporte inválido: " + e.getMessage());
             return;
         }
 
@@ -114,7 +114,7 @@ public class EmpleadoListaEnlazada {
             TipoSoporte tipoSoporteValido = validateInfo.validarTipoSoporte(actualizado.getTipoSoporte().toString());
             actualizado.setTipoSoporte(tipoSoporteValido);
         } catch (IllegalArgumentException e) {
-            validateInfo.showError("DPI inválido: " + e.getMessage());
+            validateInfo.showError("Tipo soporte inválido: " + e.getMessage());
             return false;
         }
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum TipoSoporte {
     TECNICO_REPARACION_PCS("Tecnico reparacion PCs"),
     TECNICO_APLICATIVOS("Tecnico aplicativos"),
-    TECNICO_REDES_INTERNET("Tecnico redes/Internet");
+    TECNICO_REDES_INTERNET("Tecnico redes/Internet"),
 
     private final String label;
 
